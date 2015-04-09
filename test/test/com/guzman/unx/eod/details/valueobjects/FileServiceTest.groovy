@@ -1,35 +1,24 @@
-package test.com.guzman.unx.eod.details.valueobjects;
-
-import static org.junit.Assert.*
-
-import org.junit.Test
+package test.com.guzman.unx.eod.details.valueobjects
 
 import com.guzman.unx.eod.details.domain.EodRecord
 import com.guzman.unx.eod.details.valueobjects.FileService
 import com.guzman.unx.eod.details.valueobjects.FileServiceITG
 import com.guzman.unx.eod.trades.valueobjects.EMS
+import org.junit.Test
 
 class FileServiceTest {
-
-	@Test
-	public void should_get_all_records() {
-		def fileLocation = "test-files/20121127_Executions_AP_1.csv"
-		def records = FileServiceITG.getAllRecords(fileLocation, EMS.INTERNATIONAL)
-		assert records != null
-		assert records.size() == 40
-	}
 	
 	
 	@Test
 	public void should_return_just_one_error_when_empty_basket_name() {
-		String rec1 = "ITG,41092084,,,241.3.1,241.3.1,20120828,,ZVZZT,2,TEST001,1,1000,1,0,NMS,Day,ITGG,ITGG,GZML,,,41092089,500,1,0,Day,2-20120828,-1,150,1297.5001,20120828-09:51:22,20120828-09:51:58,20120828-09:52:40"
-		String rec2 = "ITG,41092084,,,241.3.1,241.3.1,20120828,,ZVZZT,2,TEST001,1,1000,1,0,NMS,Day,ITGG,ITGG,GZML,,,41092089,500,1,0,Day,3-20120828,-1,100,1297.5001,20120828-09:51:22,20120828-09:51:58,20120828-09:52:40"
-		String rec3 = "ITG,41092084,,,241.3.1,241.3.1,20120828,,ZVZZT,2,TEST001,1,1000,1,0,NMS,Day,ITGG,ITGG,GZML,,,41092089,500,1,0,Day,4-20120828,-1,100,10.05,20120828-09:51:22,20120828-09:51:58,20120828-09:53:34"
+		String rec1 = "TIAA,Instinet,!1150326017013365,10326016920779D1,10326016920779D1,10326017013365D1,10326017013365D1,20150327,TIAA3,AIRM US,1,009128307,1,NSQ,1049,5,,ATC,G-MLALGO,MLCO,GZML,8. QMOC,,,1049,,0.0000,DAY,172913687,1049,47.0200,20150327-13:12:29,20150327-13:14:16,20150327-16:00:00,4,XNAS,,USD"
+		String rec2 = "TIAA,Instinet,!1150326017013368,10326016920809D1,10326016920809D1,AAA 8308/03272015,AAA 8308/03272015,20150327,,SNX US,1,87162W100,1,NYQ,658,5,,ATC,INSTINET,NYSE,GZML,SmartRouter,,,658,,0.0000,DAY,172946741,606,76.1800,20150327-13:12:29,20150327-13:14:16,20150327-16:07:51,6/2,XNYS,52,USD"
+		String rec3 = "TIAA,Instinet,!1150326017013368,10326016920809D1,10326016920809D1,AAA 8308/03272015,AAA 8308/03272015,20150327,TIAA3,SNX US,1,87162W100,1,NYQ,658,5,,ATC,INSTINET,NYSE,GZML,SmartRouter,,,658,,0.0000,DAY,172946743,52,76.1800,20150327-13:12:29,20150327-13:14:16,20150327-16:07:51,6/2,XNYS,52,USD"
 		
 		List<EodRecord> records = new ArrayList<EodRecord>()
 		for (rec in [rec1, rec2, rec3]) {
 			String[] record = rec.split(",")
-			records <<  EodRecord.valueOf(record, EMS.ITG)
+			records <<  EodRecord.valueOf(record, EMS.INSTINET)
 		}
 		assert 3 == records.size()
 		assert false == FileService.doAllRecordsHaveASourceName(records)
