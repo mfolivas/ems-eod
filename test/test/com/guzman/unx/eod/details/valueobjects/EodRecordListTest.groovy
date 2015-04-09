@@ -1,0 +1,46 @@
+package test.com.guzman.unx.eod.details.valueobjects;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import com.guzman.unx.eod.details.domain.EodRecord;
+import com.guzman.unx.eod.trades.valueobjects.EMS;
+
+class EodRecordListTest {
+	
+	@Test
+	public void should_keep_hundred_characters_in_algo_parameter() {
+		String line = "ITG,39892063,20120830C00000021,BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057,243.360.1,243.360.1,20120830,JBNYFX-S-011,JNJ,2,2475833,2,49298,1,0,NYS,Day,DLSB,POSI,GZML,,1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890|12345678901234567890|12345678901234567890|123456780,39892070,1500,1,0,Day,797-20120830,-1,300,67.115,20120830-13:56:34,20120830-14:01:54,20120830-14:02:34"
+		String[] records = line.split(",")
+		def rec = EodRecord.valueOf(records, EMS.ITG)
+		assert rec != null
+		String[] list = rec.getList()
+		String clientOrder = list[3]
+		assert "BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQ" == clientOrder
+		assert 50 == clientOrder.size()
+		String algoParams = list[22]
+		assert "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890" == algoParams 
+		assert 100 == algoParams.size()
+		
+		line = "ITG,39892063,20120830C00000021,BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057BQQ00057,243.360.1,243.360.1,20120830,JBNYFX-S-011,JNJ,2,2475833,2,49298,1,0,NYS,Day,DLSB,POSI,GZML,,12345678901234567890123456789012345678901234567890123456789,39892070,1500,1,0,Day,797-20120830,-1,300,67.115,20120830-13:56:34,20120830-14:01:54,20120830-14:02:34"
+		records = line.split(",")
+		rec = EodRecord.valueOf(records, EMS.ITG)
+		list = rec.getList()
+		algoParams = list[22]
+		println algoParams
+		assert "12345678901234567890123456789012345678901234567890123456789" == algoParams
+		assert 59 == algoParams.size()
+		
+		line = "TIAA-CREF (G754),Instinet,!1130405005590026,10405005567373D1,10405005567373D1,10405005590026D1,10405005590026D1,20130408,1130405005567374,HUB/B US,1,443510201,2,NYQ,160,ATC,0.0000,ATC,G-GSACHSALGOS,GSET,GZML,SOR,,,160,ATC,0.0000,DAY,171931907,160,94.4400,20130408-12:49:11,20130408-12:50:45,20130408-16:02:37"
+		records = line.split(",")
+		rec = EodRecord.valueOf(records, EMS.INSTINET)
+		list = rec.getList()
+		String clientName = list[35]
+		String clientNetwork = list[36]
+		println clientName
+		println clientNetwork
+		assert "12345678901234567890123456789012345678901234567890123456789" == algoParams
+		assert 59 == algoParams.size()
+	}
+}

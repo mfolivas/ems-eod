@@ -1,0 +1,1 @@
+ems_name,ems_order_id,GuzClOrdID,OrigGuzClOrdID,EmsClOrdID,OrigEmsClOrdID,TradeDate,ListID,Symbol,IDSource,SecurityID,Side,OrderShares,OrderType,PxClientLmt,PrimaryExchange,TIF,Destination,ExecutingBroker,MPID,AlgoStrategy,AlgoParameters,WaveID,WaveShares,WaveOrderType,WaveLmtPx,WaveTIF,ExecID,ExecRefID,LastSh,LastPx,datetime_orderreceived,datetime_routed,datetime_executed

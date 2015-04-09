@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+  <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" 
+             value="[%d][%t] %-5p %c%x-%m%n" />
+    </layout>
+  </appender>
+  <appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="/tmp/logs/unx_eod.log" />
+    <param name="DatePattern" value=".yyyy-MM-dd" />
+    <param name="Append" value="true" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" 
+             value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-6p[%d{ISO8601}] [%t][%c.%M():%L]%m%n"/>
+    </layout>           
+  </appender>
+  <appender name="errorFile" class="org.apache.log4j.DailyRollingFileAppender">
+      <param name="File" value="/tmp/logs/unx_eod_error.log" />
+      <param name="DatePattern" value=".yyyy-MM-dd" />
+      <param name="Append" value="true" />
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" 
+               value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-6p[%d{ISO8601}] [%t][%c.%M():%L]%m%n"/>
+      </layout>
+      <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="error" />
+            <param name="LevelMax" value="fatal" />
+    </filter>
+  </appender>
+  <appender name="administratorEmail" class="org.apache.log4j.net.SMTPAppender">
+    <param name="BufferSize" value="512" />
+    <param name="SMTPHost" value="enterprisealerts.corp.guzman.com" />
+    <param name="From" value="donotreply@guzman.com" />
+    <param name="To" value="molivas@guzman.com" />
+    <param name="Subject" value="ERROR with EMS EOD" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+        value="[%d][%t]%-5p%c%x-%m%n" />
+    </layout>
+    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+      <param name="LevelMin" value="error" />
+      <param name="LevelMax" value="fatal" />
+    </filter>
+</appender>
+  <root>
+    <priority value="INFO"/>
+    <appender-ref ref="stdout"/>
+    <appender-ref ref="file"/>
+    <appender-ref ref="errorFile"/>
+    <appender-ref ref="administratorEmail"/>
+  </root>
+</log4j:configuration>
