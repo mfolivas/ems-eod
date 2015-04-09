@@ -53,7 +53,12 @@ public final class InstinetRecordMapper {
 		String orderReceived = FetchRecordValue.getInstinetDateFormatted(records, DATETIME_ORDER_RECEIVED)
 		String dateTimeRouted = FetchRecordValue.getInstinetDateFormatted(records, DATETIME_ROUTED)
 		String executionTime = FetchRecordValue.getInstinetDateFormatted(records, DATETIME_EXECUTED)
-		
+
+		String rawLiquidity = FetchRecordValue.getInstinetString(records, RAW_LIQUIDITY)
+		String lastMkt = FetchRecordValue.getInstinetString(records, LAST_MKT)
+		String lastLiquidity = FetchRecordValue.getInstinetString(records, LAST_LIQUIDITY)
+		String currency = FetchRecordValue.getInstinetString(records, CURRENCY)
+
 		return new EodRecord(orderId, null, null,
 			null, clientOrderId,
 			originalClientOrderId, instinetClientOrderId,
@@ -74,6 +79,8 @@ public final class InstinetRecordMapper {
 			null,
 			null,
 			null, null, null,
-			null, ems, clientInfo.clientName, clientInfo.clientNetwork)
+			null, ems, clientInfo.clientName, clientInfo.clientNetwork,
+				rawLiquidity, lastMkt, lastLiquidity, currency
+		)
 	}
 }

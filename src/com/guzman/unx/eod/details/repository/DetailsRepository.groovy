@@ -26,7 +26,7 @@ final class DetailsRepository {
 	private final String BATCH_SIZE = props.get("unx.eod.batch.size")
 	public static final String INSERT_INTO_DETAILS = '''
 	insert into tblTradesDetail (  
-	EMS_Name,EMS_order_id,GuzClOrdID,       			--3
+	EMS_Name,EMS_order_id,GuzClOrdID,       						--3
 	OrigGuzClOrdID,EmsClOrdID,OrigEmsClOrdID,TradeDate,ListID, 		--8
 	Symbol,IDSource,SecurityID,side,shares,  					    --13
 	OrderType,PxClientLmt,   	    	   							--15
@@ -35,12 +35,14 @@ final class DetailsRepository {
 	WaveShares,WaveOrderType,WaveLmtPrx,WaveTIF, 					--28
 	ExecID,ExecRefID,LastSh,LastPx,									--32
 	datetime_orderReceived,datetime_routed,ExecutionTime,			--35
-	ClientName, ClientNetwork)	 									--37
+	ClientName, ClientNetwork,	 									--37
+	RawLiquidity, LastMkt, LastLiquidity, Currency)	 				--41
 	values (?,?,?,?,?,?,?,?,?,? --10
 			,?,?,?,?,?,?,?,?,?,? --20
 			,?,?,?,?,?,?,?,?,?,? --30
 			,?,?,?,?,? 			 --35
-			,?,?)				 --37
+			,?,?				 --37
+			,?,?,?,?)			 --41
     '''
 	
 	private static final String RECORDS_EXISTS = "select count(*) as total from tblTradesDetail where tradeDate = ? and EMS_Name = ?"

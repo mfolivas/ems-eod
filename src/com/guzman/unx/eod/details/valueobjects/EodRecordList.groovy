@@ -60,7 +60,11 @@ final class EodRecordList {
 	   list << getString(record.dateTimeRouted)
 	   list << getString(record.executionTime)
 	   list << getString(record.clientName)
-	   list << getString(record.clientNetwork)
+	   list << getString(record.clientNetwork)//37
+	   list << getString(record.rawLiquidity)
+	   list << getString(record.lastMkt)
+	   list << getString(record.lastLiquidity)
+	   list << getString(record.currency) //41
 	   return list
 	}
 	
