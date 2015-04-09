@@ -1,4 +1,7 @@
-package test.com.guzman.unx.eod.details.repository;
+package test.com.guzman.unx.eod.details.repository
+
+import org.h2.tools.RunScript
+import org.junit.BeforeClass;
 
 import static org.junit.Assert.*
 import groovy.sql.Sql
@@ -13,12 +16,15 @@ import com.guzman.unx.eod.details.valueobjects.FileServiceITG;
 import com.guzman.unx.eod.trades.valueobjects.EMS
 
 class DetailsRepositoryTest {
-	
+	@BeforeClass
+	public static void load_database() {
+		def sql = Sql.newInstance("jdbc:h2:mem:intranet;MODE=MSSQLSERVER", "sa", "sa", "org.h2.Driver")
+		RunScript.execute(sql.getConnection(), new FileReader("sql/master_detail_tables.sql"))
+	}
 	
 	@Test
 	public void should_insert_all_records_into_the_db() {
-		def sql = Sql.newInstance("jdbc:sqlserver://gts10:1433;databaseName=intranet",
-			"dbuser", "bloody","com.microsoft.sqlserver.jdbc.SQLServerDriver")
+		def sql = Sql.newInstance("jdbc:h2:mem:intranet;MODE=MSSQLSERVER", "sa", "sa", "org.h2.Driver")
 		sql.execute("DELETE FROM tblTradesDetail where tradedate = '20121015'")
 		sql.close()
 		def repository = new DetailsRepository()
@@ -35,8 +41,7 @@ class DetailsRepositoryTest {
 	}
 	
 	public void insert_into_the_db(String line) {
-		def sql = Sql.newInstance("jdbc:sqlserver://gts10:1433;databaseName=intranet",
-			"dbuser", "bloody","com.microsoft.sqlserver.jdbc.SQLServerDriver")
+		def sql = Sql.newInstance("jdbc:h2:mem:intranet;MODE=MSSQLSERVER", "sa", "sa", "org.h2.Driver")
 		sql.execute("DELETE FROM tblTradesDetail where tradedate = '20120118'")
 		
 		String[] record = line.split(",")
