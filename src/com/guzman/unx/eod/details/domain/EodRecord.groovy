@@ -43,6 +43,7 @@ final class EodRecord {
 	String liquidity
 	EMS ems
 	String clientName, clientNetwork
+	String rawLiquidity, lastMkt, lastLiquidity, currency
 	
 	public static EodRecord valueOf (String[] records, EMS ems) {
 		if(records == null || records.size() < 1 || ems == null) {

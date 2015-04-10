@@ -1,0 +1,2 @@
+ClientName,ClentNetwork,ems_order_id,ClordID,OrigClordID,EmsClordID,OrigEmsClordID,TradeDate,ListID,Symbol,IDSource,SecurityID,Side,PrimaryExchange,ClientShares,ClientOrderType,ClientLmtPx,ClientTIF,Destination,ExecBroker,MPID,AlgoStrategy,AlgoParameters,WaveID,WaveShares,WaveOrderType,WaveLmtPx,WaveTIF,ExecID,LastSh,LastPx,datetime_orderreceived,datetime_routed,datetime_executed,RawLiquidity,LastMkt,LastLiquidity,Currency
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
